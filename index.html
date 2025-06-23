@@ -1,97 +1,877 @@
 <!DOCTYPE html>
 <html lang="he">
 <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Digital Guides - מדריכים להצלחה</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Digital Guides - מדריכים דיגיטליים להצלחה</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<style>
+  /* בסיס */
+  :root {
+    --clr-primary: #00ffe7;
+    --clr-secondary: #ff00c8;
+    --clr-dark: #0b0f19;
+    --clr-light: #f5f5f5;
+    --clr-card: #1c1e26;
+    --clr-accent: #5dffe0;
+    --clr-text: #ffffff;
+    --shadow-color: rgba(0,0,0,0.4);
+  }
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+  body {
+    background: var(--clr-dark);
+    color: var(--clr-text);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  a {
+    color: var(--clr-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  a:hover {
+    color: var(--clr-secondary);
+  }
+  img {
+    max-width: 100%;
+    border-radius: 12px;
+  }
+  /* כותרות */
+  header {
+    background: linear-gradient(90deg, #181c2f, #202742);
+    padding: 4rem 1rem 3rem;
+    text-align: center;
+    box-shadow: 0 4px 20px var(--shadow-color);
+    user-select: none;
+  }
+  header h1 {
+    font-size: 3.5rem;
+    color: var(--clr-primary);
+    margin-bottom: 0.3rem;
+  }
+  header p {
+    font-size: 1.25rem;
+    color: var(--clr-light);
+  }
+
+  /* ניווט */
+  nav {
+    background: #151925;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    padding: 1.25rem 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px var(--shadow-color);
+  }
+  nav a {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  /* סקשנים */
+  section {
+    max-width: 1100px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+  }
+  section h2 {
+    color: var(--clr-accent);
+    font-size: 2.4rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 8px var(--clr-primary);
+  }
+
+  /* כרטיסיות - מדריכים / סיפור / ביקורות */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+    gap: 2.2rem;
+  }
+  .card {
+    background: var(--clr-card);
+    padding: 1.75rem 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px var(--shadow-color);
+    transition: transform 0.3s ease;
+  }
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px var(--clr-primary);
+  }
+  .card h3 {
+    color: var(--clr-primary);
+    margin-bottom: 1rem;
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+  .card p {
+    color: var(--clr-light);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .card .btn {
+    display: inline-block;
+    margin-top: 1.2rem;
+    padding: 0.7rem 1.6rem;
+    background: var(--clr-primary);
+    color: #000;
+    border-radius: 0.8rem;
+    font-weight: 700;
+    transition: background 0.3s ease;
+  }
+  .card .btn:hover {
+    background: var(--clr-secondary);
+    color: #fff;
+  }
+
+  /* הסבר תשלום */
+  #payment-info {
+    background: var(--clr-card);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px var(--shadow-color);
+    max-width: 600px;
+    margin: 2rem auto 5rem;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: var(--clr-light);
+  }
+  #payment-info ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  #payment-info ol li {
+    margin-bottom: 0.7rem;
+  }
+  #payment-info .btn-whatsapp {
+    display: inline-block;
+    margin-top: 1rem;
+    background: var(--clr-primary);
+    padding: 0.7rem 1.4rem;
+    border-radius: 1rem;
+    font-weight: 700;
+    color: #000;
+    transition: background 0.3s ease;
+  }
+  #payment-info .btn-whatsapp:hover {
+    background: var(--clr-secondary);
+    color: #fff;
+  }
+
+  /* צור קשר */
+  #contact {
+    background: var(--clr-card);
+    padding: 2.2rem 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px var(--shadow-color);
+    max-width: 700px;
+    margin: 3rem auto 6rem;
+  }
+  #contact h2 {
+    margin-bottom: 1.5rem;
+  }
+  #contact p {
+    color: var(--clr-accent);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  #contact form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+  #contact label {
+    font-weight: 600;
+  }
+  #contact input[type="text"],
+  #contact input[type="email"],
+  #contact textarea {
+    padding: 0.85rem 1rem;
+    border-radius: 0.7rem;
+    border: none;
+    background: #2a2f44;
+    color: var(--clr-text);
+    font-size: 1rem;
+    resize: vertical;
+    transition: box-shadow 0.3s ease;
+  }
+  #contact input[type="text"]:focus,
+  #contact input[type="email"]:focus,
+  #contact textarea:focus {
+    outline: none;
+    box-shadow: 0 0 8px var(--clr-primary);
+  }
+  #contact textarea {
+    min-height: 120px;
+  }
+  #contact .submit-btn {
+    background: var(--clr-primary);
+    border: none;
+    padding: 1rem;
+    border-radius: 0.9rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: #000;
+    transition: background 0.3s ease;
+  }
+  #contact .submit-btn:hover {
+    background: var(--clr-secondary);
+    color: #fff;
+  }
+  #contact .contact-info {
+    text-align: center;
+    margin-top: 1.6rem;
+    font-size: 1.2rem;
+    color: var(--clr-accent);
+  }
+  #contact .contact-info a {
+    font-weight: 700;
+  }
+
+  /* ביקורות */
+  #reviews {
+    max-width: 850px;
+    margin: 0 auto 4rem;
+    background: var(--clr-card);
+    padding: 2rem 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px var(--shadow-color);
+  }
+  #reviews h2 {
+    margin-bottom: 1.5rem;
+  }
+  .review {
+    border-bottom: 1px solid #444654;
+    padding: 1rem 0;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  .review:last-child {
+    border-bottom: none;
+  }
+  .review h4 {
+    color: var(--clr-primary);
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+  .star-rating {
+    color: #ffca28;
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+  }
+  .review p {
+    color: var(--clr-light);
+  }
+  #review-form {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  #review-form label {
+    font-weight: 600;
+  }
+  #review-form input[type="text"],
+  #review-form select,
+  #review-form textarea {
+    padding: 0.7rem 1rem;
+    border-radius: 0.7rem;
+    border: none;
+    background: #2a2f44;
+    color: var(--clr-text);
+    font-size: 1rem;
+    resize: vertical;
+    transition: box-shadow 0.3s ease;
+  }
+  #review-form input[type="text"]:focus,
+  #review-form select:focus,
+  #review-form textarea:focus {
+    outline: none;
+    box-shadow: 0 0 8px var(--clr-primary);
+  }
+  #review-form textarea {
+    min-height: 100px;
+  }
+  .submit-btn {
+    align-self: flex-start;
+    padding: 0.8rem 1.8rem;
+    background: var(--clr-primary);
+    border: none;
+    color: #000;
+    font-weight: 700;
+    border-radius: 1rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .submit-btn:hover {
+    background: var(--clr-secondary);
+    color: #fff;
+  }
+  .error-msg {
+    color: #ff4f4f;
+    font-size: 0.85rem;
+    display: none;
+    margin-top: 0.25rem;
+  }
+
+  /* FAQ */
+  #faq details {
+    background: var(--clr-card);
+    padding: 1rem 1.5rem;
+    border-radius: 0.8rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 5px 15px var(--shadow-color);
+  }
+  #faq summary {
+    font-weight: 700;
+    font-size: 1.15rem;
+    cursor: pointer;
+    color: var(--clr-primary);
+    outline: none;
+  }
+  #faq summary::-webkit-details-marker {
+    display: none;
+  }
+  #faq summary::before {
+    content: "➕ ";
+    color: var(--clr-secondary);
+    font-weight: 900;
+  }
+  #faq[open] summary::before {
+    content: "➖ ";
+    color: var(--clr-primary);
+  }
+  #faq details[open] summary {
+    color: var(--clr-secondary);
+  }
+  #faq p {
+    margin-top: 0.5rem;
+    color: var(--clr-light);
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  #faq-search {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.7rem;
+    border: none;
+    background: #2a2f44;
+    color: var(--clr-text);
+    font-size: 1rem;
+  }
+  #faq-search:focus {
+    outline: none;
+    box-shadow: 0 0 8px var(--clr-primary);
+  }
+
+  /* Chatbot */
+  #chatbot-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--clr-primary);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px var(--shadow-color);
+    transition: background 0.3s ease;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: #000;
+  }
+  #chatbot-btn:hover {
+    background: var(--clr-secondary);
+    color: #fff;
+  }
+  #chatbot-panel {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 320px;
+    max-width: 90vw;
+    background: var(--clr-card);
+    border-radius: 1rem;
+    box-shadow: 0 10px 35px var(--shadow-color);
+    display: none;
+    flex-direction: column;
+    max-height: 480px;
+    overflow: hidden;
+    z-index: 2000;
+  }
+  #chatbot-panel.active {
+    display: flex;
+  }
+  #chatbot-header {
+    background: var(--clr-primary);
+    padding: 1rem 1.5rem;
+    color: #000;
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #chatbot-close-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #000;
+  }
+  #chatbot-messages {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    overflow-y: auto;
+    font-size: 0.9rem;
+    color: var(--clr-light);
+  }
+  .chatbot-message {
+    margin-bottom: 1rem;
+    padding: 0.6rem 1rem;
+    border-radius: 1rem;
+    max-width: 85%;
+    word-wrap: break-word;
+  }
+  .chatbot-message.user {
+    background: var(--clr-primary);
+    color: #000;
+    align-self: flex-end;
+  }
+  .chatbot-message.bot {
+    background: #292e3d;
+    align-self: flex-start;
+  }
+  #chatbot-input-area {
+    display: flex;
+    border-top: 1px solid #444654;
+  }
+  #chatbot-input {
+    flex: 1;
+    border: none;
+    padding: 0.75rem 1rem;
+    background: #202742;
+    color: var(--clr-light);
+    font-size: 1rem;
+    border-radius: 0 0 0 1rem;
+  }
+  #chatbot-input:focus {
+    outline: none;
+  }
+  #chatbot-send-btn {
+    background: var(--clr-primary);
+    border: none;
+    padding: 0 1.4rem;
+    color: #000;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 0 0 1rem 0;
+    font-size: 1.2rem;
+    transition: background 0.3s ease;
+  }
+  #chatbot-send-btn:hover {
+    background: var(--clr-secondary);
+    color: #fff;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    header h1 {
+      font-size: 2.6rem;
+    }
+    section {
+      margin: 2rem 1rem;
+    }
+    nav {
+      gap: 1.5rem;
+      padding: 1rem 0.5rem;
+      overflow-x: auto;
+    }
+    .cards {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    #chatbot-panel {
+      width: 90vw;
+      bottom: 70px;
+      right: 5vw;
+      max-height: 380px;
+    }
+  }
+</style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <h1>Digital Guides</h1>
-      <p>הדרך שלך להרוויח, להשקיע ולצמוח בדיגיטל 🚀</p>
+
+<header>
+  <h1>Digital Guides</h1>
+  <p>הדרך שלך להרוויח, להשקיע ולצמוח בדיגיטל 🚀</p>
+</header>
+
+<nav>
+  <a href="#about">עלינו</a>
+  <a href="#guides">מדריכים</a>
+  <a href="#payment-info">איך משלמים?</a>
+  <a href="#reviews">ביקורות</a>
+  <a href="#faq">שאלות נפוצות</a>
+  <a href="#contact">צור קשר</a>
+  <a href="#terms">תקנון</a>
+</nav>
+
+<section id="about">
+  <h2>הסיפור שלנו & החזון</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>איך הכל התחיל</h3>
+      <p>המסע שלנו התחיל מרעיון פשוט: לעזור לאנשים להרוויח כסף מהבית בעזרת מדריכים דיגיטליים איכותיים, קלים להבנה ועם תוצאות אמיתיות.</p>
     </div>
-  </header>
-
-  <!-- סיפור אישי -->
-  <section class="hero">
-  <div class="container">
-    <h2>הסיפור שלי 💡</h2>
-    <p>
-      שמי אביעוז, וזו לא סתם עוד חנות דיגיטלית – זה סיפור של שינוי, תעוזה והתמדה. 👨‍💻<br><br>
-
-      התחלתי את המסע הזה בלי הרבה ידע, בלי הרבה כסף, ובלי מושג איך בכלל מתחילים למכור באינטרנט. כל מה שהיה לי זה רעב להצליח ורצון לעשות משהו אחר עם החיים שלי. 🙏<br><br>
-
-      גיליתי את העולם של המדריכים הדיגיטליים, כלים כמו ChatGPT, והבנתי שאני לא צריך להיות מומחה או בעל תואר כדי להתחיל – רק מישהו עם רעיון ונחישות. 💥<br><br>
-
-      יצרתי את האתר הזה כדי שגם אתה תוכל לקחת את הצעד הראשון שלך. כל מדריך פה נכתב באהבה, מתוך ניסיון אישי, והכל פשוט וברור. אין חפירות. רק תכלס. 🎯<br><br>
-
-      אם אתה רוצה לשנות את החיים שלך, אני מזמין אותך להצטרף אליי למסע הזה. הזמן שלך הוא עכשיו. 🚀
-    </p>
+    <div class="card">
+      <h3>החזון שלנו</h3>
+      <p>להפוך את עולם המדריכים הדיגיטליים לנגיש לכל אחד, עם תוכן מעמיק, מעשי, ועדכני שיעזור לך לצמוח כלכלית וחברתית.</p>
+    </div>
+    <div class="card">
+      <h3>הייחודיות שלנו</h3>
+      <p>מדריכים שנכתבו עם המון תשוקה וניסיון, בלי סיסמאות וספינים – רק מידע אמיתי שמניב תוצאות בשטח.</p>
+    </div>
   </div>
 </section>
 
-  <!-- מדריכים -->
-  <section class="guides">
-    <div class="container">
-      <h2>📚 המדריכים שלנו</h2>
-      <div class="guide-grid">
-        <div class="guide">
-          <img src="https://eureka.b-cdn.net/images/w400/7254347346.jpg" alt="ChatGPT Guide">
-          <h3>איך להשתמש ב-ChatGPT כדי להרוויח כסף וללמוד</h3>
-          <p>מדריך פרקטי ומתקדם לשימוש בצ'אט ליצירת רעיונות, מוצרים והכנסה.</p>
-          <p class="price">129.99 ₪</p>
-        </div>
-        <div class="guide">
-          <img src="https://www.shaharcohen.co.il/wp-content/uploads/2020/07/%D7%90%D7%91%D7%90-%D7%A2%D7%A9%D7%99%D7%A8-%D7%90%D7%91%D7%90-%D7%A2%D7%A0%D7%99.jpg" alt="Dropshipping Guide">
-          <h3>מדריך דרופשיפינג 2025</h3>
-          <p>פתח חנות אונליין, מכור באמזון, איביי ו-Etsy – בלי להחזיק מלאי.</p>
-          <p class="price">129.99 ₪</p>
-        </div>
-        <div class="guide">
-          <img src="https://publicdomainvectors.org/tn_img/books-clip-art-publicdomain.webp" alt="Investing Guide">
-          <h3>מדריך השקעות חכם</h3>
-          <p>איך להתחיל להשקיע גם עם סכום קטן – בלי להסתבך.</p>
-          <p class="price">129.99 ₪</p>
-        </div>
-        <div class="guide">
-          <img src="https://www.urbanbrush.net/web/wp-content/uploads/edd/2019/07/urbanbrush-20190730024701335085.png" alt="Nutrition Guide">
-          <h3>מדריך לתזונה בריאה</h3>
-          <p>תפריט פשוט ובריא שיעזור לך להרגיש טוב יותר – בלי דיאטות קשות.</p>
-          <p class="price">129.99 ₪</p>
-        </div>
-      </div>
+<section id="guides">
+  <h2>📘 המדריכים שלנו</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>מדריך ChatGPT מתקדם</h3>
+      <p>למד כיצד להשתמש בכלי ה-AI החדשני כדי ליצור הכנסה, רעיונות ומוצרים דיגיטליים.</p>
+      <a href="#payment-info" class="btn">129 ₪ - לפרטים</a>
     </div>
-  </section>
-
-  <!-- תשלום בביט -->
-  <section class="payment">
-    <div class="container">
-      <h2>💳 איך משלמים?</h2>
-      <p>
-        שלמו בביט למספר: <strong>054-7925652</strong> <br>
-        לאחר התשלום, שלחו אישור לוואטסאפ ונשלח לכם את המדריך 📩
-      </p>
-      <a href="https://wa.me/972547925652" class="btn" target="_blank">שלח לי הודעה בוואטסאפ</a>
+    <div class="card">
+      <h3>מדריך דרופשיפינג 2025</h3>
+      <p>פתח חנות אונליין, מכור באמזון, איביי ו-Etsy ללא צורך במלאי.</p>
+      <a href="#payment-info" class="btn">129 ₪ - לרכישה</a>
     </div>
-  </section>
-
-  <!-- צור קשר -->
- <section class="contact-info">
-  <div class="container">
-    <h2>📞 צור קשר</h2>
-    <p><i class="fas fa-phone"></i> <strong>טלפון:</strong> <a href="tel:0547925652">054-7925652</a></p>
-    <p><i class="fas fa-envelope"></i> <strong>מייל:</strong> <a href="mailto:7777avioz@gmail.com">7777avioz@gmail.com</a></p>
-    <p><i class="fab fa-instagram"></i> <strong>אינסטגרם:</strong> <a href="https://www.instagram.com/avioz_cohen" target="_blank">@avioz_cohen</a></p>
+    <div class="card">
+      <h3>מדריך השקעות חכם</h3>
+      <p>איך להתחיל להשקיע בקלות, גם עם סכום קטן, ולהכפיל את הכסף שלך.</p>
+      <a href="#payment-info" class="btn">129 ₪ - התחלה</a>
+    </div>
   </div>
 </section>
 
-  <footer>
-    <div class="container">
-      <p>© 2025 Digital Guides | כל הזכויות שמורות</p>
-    </div>
-  </footer>
+<section id="payment-info">
+  <h2>💳 איך משלמים בביט?</h2>
+  <p>תשלום פשוט, מהיר ובטוח דרך האפליקציה של ביט למספר הטלפון שלנו: <strong>054-7925652</strong></p>
+  <ol>
+    <li>פתח את אפליקציית ביט במכשיר שלך.</li>
+    <li>בחר "שלח" והזן את המספר <strong>054-7925652</strong>.</li>
+    <li>הזן את הסכום הרצוי לפי מחיר המדריך שברצונך לרכוש.</li>
+    <li>בצע את התשלום.</li>
+    <li>שלח אלינו בוואטסאפ צילום מסך של אישור התשלום בכתובת: <a href="https://wa.me/972547925652" target="_blank">לחץ כאן לוואטסאפ</a></li>
+    <li>נשלח אליך מיד את הקישור להורדת המדריך.</li>
+  </ol>
+  <a href="https://wa.me/972547925652" class="btn btn-whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> שלח צילום מסך עכשיו</a>
+</section>
+
+<section id="reviews">
+  <h2>⭐ ביקורות גולשים</h2>
+  <div id="reviews-container">
+    <article class="review" tabindex="0">
+      <h4>רוני ל.</h4>
+      <div class="star-rating" aria-label="דירוג 5 כוכבים">★★★★★</div>
+      <p>המדריך עזר לי להתחיל עסק אונליין תוך זמן קצר, ההסברים היו ברורים ונגישים, ממליץ מאוד!</p>
+    </article>
+    <article class="review" tabindex="0">
+      <h4>שרה מ.</h4>
+      <div class="star-rating" aria-label="דירוג 4 כוכבים">★★★★☆</div>
+      <p>אהבתי את התוכן והמדריך, קצת חסר לי מידע על שיווק אבל קיבלתי ערך רב.</p>
+    </article>
+    <article class="review" tabindex="0">
+      <h4>אבי ש.</h4>
+      <div class="star-rating" aria-label="דירוג 5 כוכבים">★★★★★</div>
+      <p>המדריכים פשוטים להבנה ועוזרים לי להתקדם עם העסק שלי, תודה רבה!</p>
+    </article>
+  </div>
+
+  <form id="review-form" aria-label="טופס הוספת ביקורת">
+    <h3>הוסף ביקורת שלך</h3>
+    <label for="reviewer-name">שם:</label>
+    <input type="text" id="reviewer-name" name="reviewer-name" required minlength="2" aria-describedby="name-error" />
+    <span id="name-error" class="error-msg">אנא הזן שם חוקי (לפחות 2 תווים)</span>
+
+    <label for="review-rating">דירוג:</label>
+    <select id="review-rating" name="review-rating" required aria-describedby="rating-error">
+      <option value="">בחר דירוג</option>
+      <option value="5">5 כוכבים</option>
+      <option value="4">4 כוכבים</option>
+      <option value="3">3 כוכבים</option>
+      <option value="2">2 כוכבים</option>
+      <option value="1">1 כוכב</option>
+    </select>
+    <span id="rating-error" class="error-msg">אנא בחר דירוג</span>
+
+    <label for="review-text">טקסט ביקורת:</label>
+    <textarea id="review-text" name="review-text" required minlength="10" aria-describedby="text-error"></textarea>
+    <span id="text-error" class="error-msg">אנא הזן לפחות 10 תווים</span>
+
+    <button type="submit" class="submit-btn">שלח ביקורת</button>
+  </form>
+</section>
+
+<section id="faq">
+  <h2>❓ שאלות נפוצות</h2>
+  <input type="search" id="faq-search" placeholder="חפש שאלה..." aria-label="חיפוש שאלות נפוצות" />
+  <details>
+    <summary>איך מקבלים את המדריך אחרי התשלום?</summary>
+    <p>ברגע שנקבל את אישור התשלום שלך בוואטסאפ, נשלח לך קישור להורדת המדריך מיידית.</p>
+  </details>
+  <details>
+    <summary>כמה זמן לוקח לקבל את המדריך?</summary>
+    <p>בדרך כלל תוך כמה דקות מרגע שליחת אישור התשלום.</p>
+  </details>
+  <details>
+    <summary>האם יש החזר כספי אם אני לא מרוצה?</summary>
+    <p>כן, במידה ואתה לא מרוצה, צור איתנו קשר ונבדוק כל מקרה לגופו.</p>
+  </details>
+  <details>
+    <summary>האם יש תמיכה טכנית לאחר הקנייה?</summary>
+    <p>בהחלט, ניתן לפנות אלינו בכל שאלה או בעיה בהקשר למדריכים.</p>
+  </details>
+</section>
+
+<section id="contact">
+  <h2>📞 צור קשר</h2>
+  <p>נשמח לעזור! ניתן לפנות אלינו בכל שאלה או בקשה:</p>
+  <form id="contact-form" aria-label="טופס יצירת קשר">
+    <label for="name">שם מלא:</label>
+    <input type="text" id="name" name="name" required aria-describedby="contact-name-error" minlength="2" />
+    <span id="contact-name-error" class="error-msg">אנא הזן שם חוקי</span>
+
+    <label for="email">אימייל:</label>
+    <input type="email" id="email" name="email" required aria-describedby="contact-email-error" />
+    <span id="contact-email-error" class="error-msg">אנא הזן אימייל תקין</span>
+
+    <label for="message">הודעה:</label>
+    <textarea id="message" name="message" required minlength="10" aria-describedby="contact-message-error"></textarea>
+    <span id="contact-message-error" class="error-msg">אנא הזן הודעה באורך מינימלי של 10 תווים</span>
+
+    <button type="submit" class="submit-btn">שלח</button>
+  </form>
+  <div class="contact-info">
+    📱 טלפון לביט וליצירת קשר: <a href="tel:+972547925652">054-7925652</a>
+  </div>
+</section>
+
+<section id="terms">
+  <h2>📜 תקנון רכישה</h2>
+  <article style="background: #292e3d; padding: 1.5rem; border-radius: 1rem; max-width: 900px; margin: 1rem auto; box-shadow: 0 6px 18px var(--shadow-color); color: var(--clr-light); line-height: 1.6;">
+    <h3 style="color: var(--clr-primary); margin-bottom: 1rem;">תקנון רכישת מדריכים דיגיטליים ב-Digital Guides</h3>
+    <p>ברוכים הבאים לאתר Digital Guides. לפני ביצוע רכישה, חשוב לקרוא ולהבין את התנאים הבאים:</p>
+    <ul style="margin-left: 1rem; margin-bottom: 1rem;">
+      <li>כל המדריכים באתר הינם קבצים דיגיטליים להורדה מיידית לאחר אישור התשלום.</li>
+      <li>התשלום מתבצע דרך אפליקציית ביט בלבד, למספר 054-7925652.</li>
+      <li>יש לשלוח צילום מסך של אישור התשלום לוואטסאפ באתר על מנת לקבל את הקישור להורדה.</li>
+      <li>אין אפשרות להחזרים לאחר הורדת הקבצים, אלא במקרים חריגים בלבד ובשיקול דעתנו.</li>
+      <li>אנו שומרים לעצמנו את הזכות לשנות את המחירים והתנאים בכל עת, ללא הודעה מראש.</li>
+      <li>שימוש במדריכים הוא על אחריות המשתמש בלבד.</li>
+      <li>כל תוכן מוגן בזכויות יוצרים ואסור לשכפלו או להפיצו ללא רשות.</li>
+    </ul>
+    <p>תודה שבחרתם ב-Digital Guides, נשמח לעזור בכל שאלה!</p>
+  </article>
+</section>
+
+<button id="chatbot-btn" aria-label="פתח/סגור צ'אט בוט"><i class="fas fa-robot"></i></button>
+
+<div id="chatbot-panel" role="dialog" aria-modal="true" aria-labelledby="chatbot-header">
+  <div id="chatbot-header">
+    <span>צ'אט בוט חכם</span>
+    <button id="chatbot-close-btn" aria-label="סגור צ'אט בוט">&times;</button>
+  </div>
+  <div id="chatbot-messages" aria-live="polite" aria-relevant="additions"></div>
+  <form id="chatbot-form" aria-label="טופס שיחה עם הצ'אט בוט">
+    <input type="text" id="chatbot-input" placeholder="כתוב כאן..." autocomplete="off" required />
+    <button type="submit" id="chatbot-send-btn" aria-label="שלח הודעה"><i class="fas fa-paper-plane"></i></button>
+  </form>
+</div>
+
+<script>
+  // ניווט נגישות בסיסי
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        link.click();
+      }
+    });
+  });
+
+  // צ'אט בוט פתיחה/סגירה
+  const chatbotBtn = document.getElementById('chatbot-btn');
+  const chatbotPanel = document.getElementById('chatbot-panel');
+  const chatbotCloseBtn = document.getElementById('chatbot-close-btn');
+  const chatbotForm = document.getElementById('chatbot-form');
+  const chatbotMessages = document.getElementById('chatbot-messages');
+  const chatbotInput = document.getElementById('chatbot-input');
+
+  chatbotBtn.addEventListener('click', () => {
+    chatbotPanel.classList.toggle('active');
+    if (chatbotPanel.classList.contains('active')) {
+      chatbotInput.focus();
+    }
+  });
+  chatbotCloseBtn.addEventListener('click', () => {
+    chatbotPanel.classList.remove('active');
+    chatbotBtn.focus();
+  });
+
+  // פונקציה להוספת הודעה לצ'אט
+  function addChatbotMessage(text, sender='bot') {
+    const msg = document.createElement('div');
+    msg.classList.add('chatbot-message', sender);
+    msg.textContent = text;
+    chatbotMessages.appendChild(msg);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  }
+
+  // סימולציית תגובות בוט בסיסית (אפשר להרחיב)
+  function botResponse(userMsg) {
+    const msg = userMsg.toLowerCase();
+    if (msg.includes('שלום') || msg.includes('היי')) {
+      return 'שלום! איך אוכל לעזור לך היום?';
+    } else if (msg.includes('מדריך') || msg.includes('מדריכים')) {
+      return 'יש לנו מגוון מדריכים מעולים, תוכל למצוא אותם בקישור "מדריכים" בתפריט.';
+    } else if (msg.includes('תשלום') || msg.includes('איך משלמים')) {
+      return 'ניתן לשלם בביט למספר 054-7925652, לאחר מכן יש לשלוח צילום מסך לוואטסאפ לקבלת המדריך.';
+    } else if (msg.includes('צור קשר')) {
+      return 'ניתן לפנות אלינו דרך הטופס בדף צור קשר או בוואטסאפ למספר 054-7925652.';
+    } else if (msg.includes('תודה') || msg.includes('תודה רבה')) {
+      return 'בשמחה! תמיד כאן לעזור 😊';
+    } else {
+      return 'מצטער, אני עדיין לומד. תוכל לפנות אלינו דרך הטופס או בוואטסאפ למספר 054-7925652.';
+    }
+  }
+
+  chatbotForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const userText = chatbotInput.value.trim();
+    if (!userText) return;
+
+    addChatbotMessage(userText, 'user');
+    chatbotInput.value = '';
+
+    setTimeout(() => {
+      const response = botResponse(userText);
+      addChatbotMessage(response, 'bot');
+    }, 800);
+  });
+
+  // טופס ביקורות - וולידציה והוספה דינמית
+  const reviewForm = document.getElementById('review-form');
+  const reviewsContainer = document.getElementById('reviews-container');
+
+  reviewForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    // ניקוי שגיאות
+    document.querySelectorAll('#review-form .error-msg').forEach(em => em.style.display = 'none');
+
+    const name = reviewForm['reviewer-name'].value.trim();
+    const rating = reviewForm['review-rating'].value;
+    const text = reviewForm['review-text'].value.trim();
+
+    let valid = true;
+    if (name.length < 2) {
+      document.getElementById('name-error').style.display = 'block';
+      valid = false;
+    }
+    if (!rating) {
+      document.getElementById('rating-error').style.display = 'block';
+      valid = false;
+    }
+    if (text.length < 10) {
+      document.getElementById('text-error').style.display = 'block';
+      valid = false;
+    }
+    if (!valid) return;
+
+    // הוספת הביקורת
+    const newReview = document.createElement('article');
+    newReview.className = 'review';
+    newReview.tabIndex = 0;
+    newReview.innerHTML = `
+      <h4>${name}</h4>
+      <div class="star-rating" aria-label="דירוג ${rating} כוכבים">${'★'.repeat(rating)}${'☆'.repeat(5 - rating)}</div>
+      <p>${text}</p>
+    `;
+    reviewsContainer.prepend(newReview);
+
+    reviewForm.reset();
+    alert('תודה על הביקורת! היא תתווסף באתר לאחר אישור.');
+  });
+
+  // טופס צור קשר - וולידציה בסיסית
+  const contactForm = document.getElementById('contact-form');
+  contactForm.addEventListener('submit', e => {
+    e.preventDefault();
+    document.querySelectorAll('#contact-form .error-msg').forEach(em => em.style.display = 'none');
+
+    const name = contactForm['name'].value.trim();
+    const email = contactForm['email'].value.trim();
+    const message = contactForm['message'].value.trim();
+
+    let valid = true;
+
+    if (name.length < 2) {
+      document.getElementById('contact-name-error').style.display = 'block';
+      valid = false;
+    }
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      document.getElementById('contact-email-error').style.display = 'block';
+      valid = false;
+    }
+    if (message.length < 10) {
+      document.getElementById('contact-message-error').style.display = 'block';
+      valid = false;
+    }
+
+    if (!valid) return;
+
+    alert('תודה שפנית אלינו! נחזור אליך בהקדם.');
+    contactForm.reset();
+  });
+
+  // חיפוש ב-FAQ
+  const faqSearch = document.getElementById('faq-search');
+  const faqDetails = document.querySelectorAll('#faq details');
+
+  faqSearch.addEventListener('input', () => {
+    const filter = faqSearch.value.toLowerCase();
+    faqDetails.forEach(detail => {
+      const text = detail.textContent.toLowerCase();
+      detail.style.display = text.includes(filter) ? '' : 'none';
+    });
+  });
+
+</script>
+
 </body>
 </html>
